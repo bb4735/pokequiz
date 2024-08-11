@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ポケモンクイズゲーム</title>
+    <link rel="stylesheet" href="pokequiz.css">
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>ポケモンクイズ</h1>
+        <div id="pokemon-silhouette">
+            <img id="pokemon-image" src="" alt="ポケモン画像">
+        </div>
+        <input type="text" id="pokemonInput" placeholder="ポケモンの名前を入力">
+        <button onclick="checkAnswer()">答え合わせ</button>
+        <button id="next-button" onclick="getRandomPokemon()">次の問題</button>
+        <p id="result"></p>
+    </div>
+    <script src="pokequiz.js"></script>
+</body>
+</html>
