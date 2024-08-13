@@ -14,10 +14,10 @@ async function getRandomPokemon() {
             silhouetteUrl: data.sprites.front_default, // シルエット化に使用
             japaneseName: await getPokemonJapaneseName(data.species.url)
         };
-        console.log("Current Pokemon Data:", currentPokemon); // デバッグ用
         displaySilhouette(currentPokemon.silhouetteUrl);
         document.getElementById("next-button").style.display = "none"; // 「次の問題」ボタンを非表示
         document.getElementById("result").textContent = ""; // 結果をクリア
+        document.getElementById("pokemonInput").value = ""; // 入力欄をクリア
     } else {
         console.error("ポケモンデータが取得できませんでした");
     }
@@ -39,7 +39,7 @@ function displaySilhouette(imageUrl) {
     const pokemonImage = document.getElementById("pokemon-image");
     pokemonImage.src = imageUrl;
     pokemonImage.onload = () => {
-        pokemonImage.style.filter = "brightness(0%)"; // シルエット化
+        pokemonImage.style.filter = "brightness(0%) invert(1)"; // シルエット化
     };
     pokemonImage.onerror = () => {
         console.error("画像の読み込みに失敗しました");
@@ -54,13 +54,12 @@ function checkAnswer() {
     if (userAnswer === currentPokemon.japaneseName) {
         resultText.textContent = "正解！";
         resultText.style.color = "green";
-        pokemonImage.style.filter = "none"; // シルエットを解除
-        document.getElementById("next-button").style.display = "block"; // 「次の問題」ボタンを表示
     } else {
-        resultText.textContent = `不正解！正しい答えは「${currentPokemon.japaneseName}」です。`;
-        resultText.style.color = "red";
-        document.getElementById("next-button").style.display = "block"; // 「次の問題」ボタンを表示
+        resultText.innerHTML = `不正解！<br>正しい答えは「${currentPokemon.japaneseName}」です。<br>もう一度挑戦してみてください！`;        resultText.style.color = "red";
     }
+
+    pokemonImage.style.filter = "none"; // シルエットを解除して通常画像にする
+    document.getElementById("next-button").style.display = "block"; // 「次の問題」ボタンを表示
 }
 
 // 「次の問題」ボタンが押されたときに呼ばれる関数
